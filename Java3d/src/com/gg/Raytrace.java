@@ -1,3 +1,5 @@
+package com.gg;
+
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -160,5 +162,6 @@ public class Raytrace extends Canvas {
 	
 	
 	public void checkRules( ){
+		
 	}
 }

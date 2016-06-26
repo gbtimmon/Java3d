@@ -1,3 +1,5 @@
+package com.gg;
+
 import java.util.Arrays;
 
 public class Vec {

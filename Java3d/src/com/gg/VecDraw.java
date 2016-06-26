@@ -1,3 +1,5 @@
+package com.gg;
+
 import java.awt.Graphics;
 
 public class VecDraw {
