@@ -1,17 +1,16 @@
 package com.gg;
 
 import java.awt.Canvas;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.stream.IntStream;
 
-public class Raytrace extends Canvas {
+public class Game extends Canvas {
 
+	private static final long serialVersionUID = 1L;
+	
 	// FIELDS
 	private Graphics g;
-	private Input inHandle;
 
 	public static int WIDTH 		= 770;
 	public static int HEIGHT 		= 790;
@@ -42,7 +41,6 @@ public class Raytrace extends Canvas {
 
 	// METHODS
 	public void start() {
-		Dimension size = new Dimension(WIDTH, HEIGHT);
 
 		IntStream.range(0, Map.width).forEach(i -> {
 			IntStream.range(0, Map.height).forEach(j -> {
@@ -67,7 +65,6 @@ public class Raytrace extends Canvas {
 		});
 
 		
-		this.inHandle = new Input();
 		this.g = getGraphics();
 
 		new Thread() {
