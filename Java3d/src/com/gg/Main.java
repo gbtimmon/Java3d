@@ -12,7 +12,7 @@ public class Main  {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.add(ga);
-        frame.setLocation(50, 50);
+        frame.setLocation(800, 50);
         frame.setSize( Game.WIDTH, Game.HEIGHT);
         frame.setVisible(true);
        
