@@ -4,24 +4,25 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 import java.util.stream.IntStream;
 
 public class Game extends Canvas {
 
 	private static final long serialVersionUID = 1L;
 
-	// FIELDS
 	private Graphics g;
-	public static boolean view3D 	= false;
-	public static int WIDTH 		= 770;
-	public static int HEIGHT 		= 790;
-	public static int BLOCK_SIZE 	= 15;
-	public static int MAP_X 		= 50;
-	public static int MAP_Y 		= 50;
-	public static Vec BLOCK_VEC 	= Vec.square(BLOCK_SIZE);
-	public static Vec GOAL 			= new Vec(	(float) (MAP_Y * Math.random()), 
-												(float) (MAP_X * Math.random()));
+	public static Vec BLOCK_VEC 	= Vec.square(Config.BLOCK_SIZE);
+	public static Vec GOAL 			= new Vec(	(float) (Config.MAP_SIZE_Y * Math.random()), 
+			(float) (Config.MAP_SIZE_X * Math.random()));
+	
+	static class Config {
+		public static boolean is3DView 			 	= false; 
+		public static final int     CANVAS_WIDTH  	= 770;
+		public static final int     CANVAS_HEIGHT  	= 790;
+		public static final int     BLOCK_SIZE		= 15; 
+		public static final int		MAP_SIZE_X		= 50; 
+		public static final int 	MAP_SIZE_Y		= 50; 
+	}
 
 	public static class Camera {
 
@@ -37,8 +38,8 @@ public class Game extends Canvas {
 	}
 
 	public static class Map {
-		static int height = MAP_X;
-		static int width = MAP_Y;
+		static int height = Config.MAP_SIZE_X;
+		static int width = Config.MAP_SIZE_Y;
 		static Block block[][] = new Block[Map.width][Map.height];
 	}
 
@@ -61,14 +62,14 @@ public class Game extends Canvas {
 		Map.block[5][5] = Block.OPEN;
 		Map.block[5][6] = Block.GOAL;
 
-		IntStream.range(0, MAP_X).forEach(i -> {
+		IntStream.range(0, Config.MAP_SIZE_X).forEach(i -> {
 			Map.block[0][i] = Block.CLOSED;
-			Map.block[MAP_Y - 1][i] = Block.CLOSED;
+			Map.block[Config.MAP_SIZE_Y - 1][i] = Block.CLOSED;
 		});
 
-		IntStream.range(0, MAP_Y).forEach(i -> {
+		IntStream.range(0, Config.MAP_SIZE_Y).forEach(i -> {
 			Map.block[i][0] = Block.CLOSED;
-			Map.block[i][MAP_X - 1] = Block.CLOSED;
+			Map.block[i][Config.MAP_SIZE_X - 1] = Block.CLOSED;
 		});
 
 		this.g = getGraphics();
@@ -97,10 +98,10 @@ public class Game extends Canvas {
 				case OPEN:
 					break;
 				case CLOSED: {
-					int I = i * BLOCK_SIZE;
-					int J = j * BLOCK_SIZE;
+					int I = i * Config.BLOCK_SIZE;
+					int J = j * Config.BLOCK_SIZE;
 
-					float mod1 = ((float)3*(i+j)) / ((float)(MAP_X + MAP_Y));
+					float mod1 = ((float)3*(i+j)) / ((float)(Config.MAP_SIZE_X + Config.MAP_SIZE_Y));
 					float mod2 = ((float) (GAME_TIME % COLOR_ROTATION_SPEED)) / (float) COLOR_ROTATION_SPEED ;
 					float mod3 = mod1 + mod2;
 					float off1 = 1.0f / 3.0f;
@@ -110,15 +111,15 @@ public class Game extends Canvas {
 					
 					
 					bg.setColor(c);
-					bg.fillRect(J, I, BLOCK_SIZE, BLOCK_SIZE);
+					bg.fillRect(J, I, Config.BLOCK_SIZE, Config.BLOCK_SIZE);
 					bg.setColor(Color.WHITE);
 
 					break;
 				}
 				case GOAL: {
-					int I = i * BLOCK_SIZE;
-					int J = j * BLOCK_SIZE;
-					bg.drawArc(J, I, BLOCK_SIZE, BLOCK_SIZE, 0, 360);
+					int I = i * Config.BLOCK_SIZE;
+					int J = j * Config.BLOCK_SIZE;
+					bg.drawArc(J, I, Config.BLOCK_SIZE, Config.BLOCK_SIZE, 0, 360);
 					break;
 				}
 				default:
@@ -127,19 +128,19 @@ public class Game extends Canvas {
 			});
 		});
 
-		Vec loc = Camera.loc.multN(BLOCK_SIZE);
-		VecDraw.Circle(bg, loc.addN(Vec.square(-BLOCK_SIZE / 3)), Vec.square(BLOCK_SIZE));
+		Vec loc = Camera.loc.multN(Config.BLOCK_SIZE);
+		VecDraw.Circle(bg, loc.addN(Vec.square(-Config.BLOCK_SIZE / 3)), Vec.square(Config.BLOCK_SIZE));
 
-		Vec p1 = loc.addN(Camera.dir.multN(Vec.square(BLOCK_SIZE / 3).mag()));
-		Vec p2 = loc.addN(Camera.dir.multN(BLOCK_SIZE / 3).rotate((float) Math.PI / 4));
-		Vec p3 = loc.addN(Camera.dir.multN(BLOCK_SIZE / 3).rotate(-(float) Math.PI / 4));
+		Vec p1 = loc.addN(Camera.dir.multN(Vec.square(Config.BLOCK_SIZE / 3).mag()));
+		Vec p2 = loc.addN(Camera.dir.multN(Config.BLOCK_SIZE / 3).rotate((float) Math.PI / 4));
+		Vec p3 = loc.addN(Camera.dir.multN(Config.BLOCK_SIZE / 3).rotate(-(float) Math.PI / 4));
 		VecDraw.Line(bg, loc, p1);
 		VecDraw.Line(bg, p1, p2);
 		VecDraw.Line(bg, p1, p3);
 
 		bg.fillRect(0, 0, HEIGHT, 25);
 		bg.setColor(Color.BLUE);
-		String s = String.format(" MOVE_SPEED : %3.15f ... %s", MOVE_SPEED, (view3D)? "3d Mode":"Overhead Mode");
+		String s = String.format(" MOVE_SPEED : %3.15f ... %s", MOVE_SPEED, (Config.is3DView)? "3d Mode":"Overhead Mode");
 		bg.drawString(s, 15, 15);
 		
 		return bf;
@@ -164,10 +165,10 @@ public class Game extends Canvas {
 		while (Input.hasEvent()) {
 			switch( Input.consumeEvent() ){
 				case Input.K_TOGGLE_RENDER_BCK : 
-					view3D = !view3D;
+					Config.is3DView = ! Config.is3DView;
 					break;
 				case Input.K_TOGGLE_RENDER_FWD :
-					view3D = !view3D;
+					Config.is3DView = ! Config.is3DView;
 					break;
 			}
 		}
