@@ -111,5 +111,15 @@ public class Vec {
 		return n;
 	}
 	
+	public Vec mapRelativeVector( Vec loc, float rot, float sz){
+		return this.rotate(rot).mult(sz).add(loc);
+	}
+	
+	public void toConsole(){
+		System.out.print(String.format( "<%f, %f>\n", e[0], e[1]));
+	}
+	
+	
+	
 	
 }
