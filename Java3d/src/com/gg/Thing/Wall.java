@@ -1,4 +1,4 @@
-package Thing;
+package com.gg.Thing;
 
 
 public class Wall extends Thing {

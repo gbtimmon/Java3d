@@ -1,4 +1,4 @@
-package Thing;
+package com.gg.Thing;
 
 import java.awt.Color;
 import java.awt.Graphics;

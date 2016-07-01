@@ -3,7 +3,7 @@ package com.gg;
 import java.util.ArrayList;
 import java.util.List;
 
-import Thing.Thing;
+import com.gg.Thing.Thing;
 
 
 

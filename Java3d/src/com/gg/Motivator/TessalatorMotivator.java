@@ -1,9 +1,8 @@
-package Motivator;
+package com.gg.Motivator;
 
 import com.gg.Input;
-
-import Thing.Thing;
-import Thing.Vec;
+import com.gg.Thing.Thing;
+import com.gg.Thing.Vec;
 
 public class TessalatorMotivator implements Motivator{
 

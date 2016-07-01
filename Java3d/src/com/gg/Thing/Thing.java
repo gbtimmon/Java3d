@@ -1,7 +1,8 @@
-package Thing;
+package com.gg.Thing;
 
 import java.util.Arrays;
-import Motivator.Motivator;
+
+import com.gg.Motivator.Motivator;
 
 public class Thing {
 	

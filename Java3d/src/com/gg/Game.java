@@ -5,13 +5,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import com.gg.console.Console;
-import com.gg.console.RollingConsole;
-
-import Motivator.TessalatorMotivator;
-import Thing.Thing;
-import Thing.Vec;
-import Thing.Wall;
+import com.gg.Console.Console;
+import com.gg.Console.RollingConsole;
+import com.gg.Motivator.TessalatorMotivator;
+import com.gg.Thing.Thing;
+import com.gg.Thing.Vec;
+import com.gg.Thing.Wall;
 
 public class Game extends Canvas {
 

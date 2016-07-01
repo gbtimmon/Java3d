@@ -1,4 +1,4 @@
-package com.gg.console;
+package com.gg.Console;
 
 public class RollingConsole extends Console{
 	int top = 0; 

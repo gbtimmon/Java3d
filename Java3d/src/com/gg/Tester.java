@@ -1,6 +1,6 @@
 package com.gg;
 
-import Thing.Vec;
+import com.gg.Thing.Vec;
 
 public class Tester {
 	public static void main( String ... args ) { 

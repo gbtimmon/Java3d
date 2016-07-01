@@ -1,4 +1,4 @@
-package com.gg.console;
+package com.gg.Console;
 
 
 //* Can I make this dependency injected to make it so I can call console uniform through out with vaired behaior based on config ??
