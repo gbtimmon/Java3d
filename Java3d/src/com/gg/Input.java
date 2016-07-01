@@ -31,6 +31,9 @@ public class Input implements KeyListener {
 	public static final int K_UP = KeyEvent.VK_W;
 	public static final int K_UP_ALT = KeyEvent.VK_UP;
 
+	public static final int K_INCREASE_GRID     = '+';
+	public static final int K_DECREASE_GRID     = '-';
+	
 	public static final int K_TOGGLE_RENDER_FWD = '>';
 	public static final int K_TOGGLE_RENDER_BCK = '<';
 
@@ -68,11 +71,11 @@ public class Input implements KeyListener {
 		return (keyPressed[K_STRAFE_RIGHT] || keyPressed[K_STRAFE_RIGHT_ALT]);
 	}
 
-	public static boolean TurnLeft() {
+	public static boolean Left() {
 		return (keyPressed[K_TURN_LEFT] || keyPressed[K_TURN_LEFT_ALT]);
 	}
 
-	public static boolean TurnRight() {
+	public static boolean Right() {
 		return (keyPressed[K_TURN_RIGHT] || keyPressed[K_TURN_RIGHT_ALT]);
 	}
 
@@ -109,7 +112,11 @@ public class Input implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent k) {
 		int cd = k.getKeyChar();
-		if (cd == K_TOGGLE_RENDER_BCK || cd == K_TOGGLE_RENDER_FWD) {
+		if (cd == K_TOGGLE_RENDER_BCK 
+		 || cd == K_TOGGLE_RENDER_FWD
+		 || cd == K_INCREASE_GRID
+		 || cd == K_DECREASE_GRID
+		) {
 			emitEvent(k.getKeyChar());
 
 			/*************************/

@@ -1,7 +1,7 @@
 package com.gg;
 
 /* Package only class */
-class Config{ 
+public class Config{ 
 	private Config(){}
 	public static boolean is3DView 			 		= false; 
 	public static final int     CANVAS_WIDTH  		= 600;

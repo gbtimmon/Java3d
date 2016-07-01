@@ -3,6 +3,8 @@ package com.gg;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import Thing.Vec;
+
 public class VecDraw {
 	public static void Line( Graphics g, Vec s, Vec e ){
 		g.drawLine((int)s.x(), (int)s.y(), (int)e.x(), (int)e.y());

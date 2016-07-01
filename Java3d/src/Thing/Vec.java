@@ -1,6 +1,8 @@
-package com.gg;
+package Thing;
 
 import java.util.Arrays;
+
+import com.gg.Config;
 
 public class Vec {
 	
@@ -40,6 +42,11 @@ public class Vec {
 		return n; 
 	}
 	
+	public Vec rotate(Vec rotation) {
+		return this.rotate( rotation.unitN().radians() );
+	}
+	
+	
 	public Vec rotate( float rads ){
 		float a = (float) Math.cos(rads) * e[0] - (float) Math.sin(rads) * e[1];
 		float b = (float) Math.sin(rads) * e[0] + (float) Math.cos(rads) * e[1];
@@ -48,6 +55,9 @@ public class Vec {
 		return this; 
 	}
 	
+	public Vec rotateN( Vec rotation) {
+		return this.rotateN( rotation.unitN().radians() );
+	}
 	public Vec rotateN( float rads ){
 		Vec n = new Vec(this);
 		n.x((float) Math.cos(rads) * e[0] - (float) Math.sin(rads) * e[1]);
@@ -97,7 +107,29 @@ public class Vec {
 		n.y( n.y() + f[1]);
 		return n;
 	}
+
+	public Vec sub( Vec v){
+		return this.sub(v.asArray());
+		
+	}
 	
+	public Vec sub( float ... f){
+		e[0] -= f[0];
+		e[1] -= f[1];
+		return this; 
+	}
+	
+	public Vec subN( Vec v){
+		return subN( v.asArray() );
+	}
+	
+	public Vec subN( float ...f ){
+		Vec n = new Vec(this);
+		n.x( n.x() - f[0]);
+		n.y( n.y() - f[1]);
+		return n;
+	}
+
 	public Vec mult( float f ){
 		e[0] *= f; 
 		e[1] *= f; 
@@ -111,6 +143,13 @@ public class Vec {
 		return n;
 	}
 	
+	public float radians(){
+		if( e [ 1 ]  > -0.0000000000001)
+			return (float) Math.acos(e[0]);
+		else 
+			return (float) ((2 * Config.PI) - Math.acos(e[0]));
+	}
+	
 	public Vec mapRelativeVector( Vec loc, float rot, float sz){
 		return this.rotate(rot).mult(sz).add(loc);
 	}
@@ -118,7 +157,8 @@ public class Vec {
 	public void toConsole(){
 		System.out.print(String.format( "<%f, %f>\n", e[0], e[1]));
 	}
-	
+
+
 	
 	
 	
